@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "zxkol": {
+      "type": "http",
+      "url": "https://zxkol.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer zxk_live_YOUR_KEY"
+      }
+    }
+  }
+}

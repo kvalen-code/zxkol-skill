@@ -1,0 +1,7 @@
+# This repo is intentionally public and contains NO secrets.
+# Never commit real API keys or env files here.
+.env
+.env.*
+*.key
+.DS_Store
+node_modules/
