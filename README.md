@@ -3,7 +3,7 @@
 > One sentence, whole-web social data. Query creators, viral content, trending charts, and comment sentiment across **18+ social platforms** — straight from Claude, Cursor, or any MCP client.
 
 <p align="center">
-  <a href="https://github.com/YOUR_ORG/zxkol-mcp/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/YOUR_ORG/zxkol-mcp?style=social"></a>
+  <a href="https://github.com/kvalen-code/zxkol-skill/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/kvalen-code/zxkol-skill?style=social"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="MCP" src="https://img.shields.io/badge/Model_Context_Protocol-ready-7c3aed">
   <img alt="Platforms" src="https://img.shields.io/badge/platforms-18%2B-09C160">
