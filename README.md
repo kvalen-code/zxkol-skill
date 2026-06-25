@@ -1,5 +1,7 @@
 # ZXKOL — Social Data for AI Agents 🌐
 
+<p align="center"><b>English</b> · <a href="README.zh-CN.md">简体中文</a></p>
+
 > One sentence, whole-web social data. Query creators, viral content, trending charts, and comment sentiment across **18+ social platforms** — straight from Claude, Cursor, or any MCP client.
 
 <p align="center">
@@ -7,6 +9,10 @@
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="MCP" src="https://img.shields.io/badge/Model_Context_Protocol-ready-7c3aed">
   <img alt="Platforms" src="https://img.shields.io/badge/platforms-18%2B-09C160">
+</p>
+
+<p align="center">
+  <a href="https://zxkol.com"><img alt="ZXKOL" src="assets/demo.png" width="800"></a>
 </p>
 
 **ZXKOL** turns "find me Douyin beauty creators with 100k–500k followers" into a single tool call — no scraping, no per-platform SDKs. It's a hosted [Model Context Protocol](https://modelcontextprotocol.io) server plus a drop-in skill: add one config block, get an API key, and your agent can pull KOL data, viral posts, hot lists, hashtag analytics, and AI comment insights from Douyin, TikTok, Xiaohongshu, Bilibili, YouTube, Instagram, and more.
@@ -112,44 +118,6 @@ Prefer a skill over a raw MCP config? Drop [`SKILL.md`](SKILL.md) into `~/.claud
 If ZXKOL saves you from writing yet another scraper, **drop a star** — it helps other builders find it.
 
 ---
-
-<details>
-<summary><b>中文说明（点击展开）</b></summary>
-
-## 智选达人 (ZXKOL) — 给 AI Agent 的社媒数据
-
-一句话查全网社媒数据。在 **Claude / Cursor / 任意 MCP 客户端**里，直接查达人、爆款、热榜、话题、评论舆情，覆盖**抖音、TikTok、小红书、B站、快手、微博、YouTube、Instagram** 等 18+ 平台。
-
-### 工具一览
-
-**高层工具（自动多平台 fan-out + 归一化）**：`creator_search` 找达人 · `content_search` 搜爆款 · `hot_list` 热榜 · `content_detail` 内容详情 · `comment_insight` AI 评论舆情 · `hashtag_search` / `hashtag_posts` 话题 · `douyin_index` 抖音指数 · `douyin_xingtu` 抖音星图。
-
-**通用工具（直达 1000+ 原始接口）**：`find_route` 语义检索 · `list_routes` 浏览 · `rest_call` 通用调用。
-
-### 三步接入
-
-1. 注册 **[zxkol.com](https://zxkol.com)**（新用户送 **100 积分**）→ 进 **[控制台 → API 密钥](https://zxkol.com/dashboard/api-keys)** 创建 `zxk_live_...` key。
-2. 把下面配置加到 `~/.claude/mcp.json`（Claude Desktop）/ `~/.cursor/mcp.json`（Cursor）/ 项目根 `.mcp.json`（Claude Code）：
-
-```json
-{
-  "mcpServers": {
-    "zxkol": {
-      "type": "http",
-      "url": "https://zxkol.com/api/mcp",
-      "headers": { "Authorization": "Bearer zxk_live_你的key" }
-    }
-  }
-}
-```
-
-3. 重启客户端，直接问即可。更多示例见 [`examples/`](examples/)。
-
-### 计费
-
-按工具调用扣积分，**缓存命中半价**，详见 [zxkol.com/pricing](https://zxkol.com/pricing)。
-
-</details>
 
 ## License
 
