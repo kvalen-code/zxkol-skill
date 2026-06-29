@@ -9,7 +9,6 @@
       },
       "_notes": [
         "Set ZXKOL_API_KEY to the key you create at https://zxkol.com/dashboard/api-keys (zxk_live_...)",
-        "Or replace ${env:ZXKOL_API_KEY} with your literal key: 'Bearer zxk_live_...'",
         "Self-hosting? Point url at your own deployment, e.g. http://localhost:3000/api/mcp"
       ]
     }
