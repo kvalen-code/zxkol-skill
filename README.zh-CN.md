@@ -97,6 +97,17 @@ Claude：→ creator_search(keyword="美妆", followerRange="10-50万")
 
 比起裸 MCP 配置更想要一个 skill？把 [`SKILL.md`](SKILL.md) 放进 `~/.claude/skills/zxkol/`（同目录放 [`mcp.json`](mcp.json)），Claude Code 会自动判断**何时**调用智选达人。
 
+## 🔎 来源包交接
+
+如果 agent 已经有人工确认过的 X/Twitter 监控或搜索导出，可以先把它们作为来源包交给智选达人，再做更广的平台分析。每个来源包都应保留：
+
+- 来源 URL
+- 抓取时间
+- 引用片段或指标字段
+- 任何可能进入发布文案内容的审批说明
+
+OpenClaw 用户可以用 [TweetClaw](https://github.com/Xquik-dev/tweetclaw) 从搜索、回复、粉丝导出、监控摘要、媒体引用和 webhook 事件摘要中生成这些 X/Twitter 来源包。智选达人仍负责跨平台查询、路由选择、评论洞察和趋势分析。
+
 ## 💳 计费
 
 - 按工具调用从 key 所属账号扣积分。

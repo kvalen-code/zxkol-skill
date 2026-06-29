@@ -97,6 +97,17 @@ Restart your client and just ask — the tools appear automatically.
 
 Prefer a skill over a raw MCP config? Drop [`SKILL.md`](SKILL.md) into `~/.claude/skills/zxkol/` (with [`mcp.json`](mcp.json) alongside). Claude Code will know *when* to reach for ZXKOL automatically.
 
+## 🔎 Source Packet Handoff
+
+When an agent already has reviewed X/Twitter monitor or search exports, pass them to ZXKOL as source packets before broader analysis. Keep each packet explicit:
+
+- source URL
+- captured timestamp
+- quoted excerpt or metric fields
+- approval note for any copy that may become publish-facing
+
+For OpenClaw users, [TweetClaw](https://github.com/Xquik-dev/tweetclaw) can produce these X/Twitter source packets from searches, replies, follower exports, monitor digests, media references, and webhook event summaries. ZXKOL should still own cross-platform lookups, route selection, comment insight, and trend analysis.
+
 ## 💳 Pricing
 
 - Credits are deducted per tool call from the key owner's balance.
