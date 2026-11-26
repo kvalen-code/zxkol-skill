@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-# Quick smoke test: list the tools the ZXKOL MCP server exposes.
-# Usage: ZXKOL_API_KEY=zxk_live_... ./curl-test.sh
+# Quick smoke test for ZXKOL MCP 2.1 Server (supports keyless discovery & authenticated full toolset)
+# Usage:
+#   ./curl-test.sh                              # Keyless discovery mode (find / describe)
+#   ZXKOL_API_KEY=zxk_live_... ./curl-test.sh   # Full authenticated toolset
 set -euo pipefail
 
-: "${ZXKOL_API_KEY:?Set ZXKOL_API_KEY first (create one at https://zxkol.com/dashboard/api-keys)}"
+AUTH_ARGS=()
+if [[ -n "${ZXKOL_API_KEY:-}" ]]; then
+  AUTH_ARGS=(-H "Authorization: Bearer ${ZXKOL_API_KEY}")
+fi
 
 curl -sS https://zxkol.com/api/mcp \
-  -H "Authorization: Bearer ${ZXKOL_API_KEY}" \
+  "${AUTH_ARGS[@]}" \
   -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
+  -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | jq .

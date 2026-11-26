@@ -1,124 +1,111 @@
-# ZXKOL — Social Data for AI Agents 🌐
+# ZXKOL — Global Social, Creator & E-Commerce Data for AI Agents 🌐
 
 <p align="center"><b>English</b> · <a href="README.zh-CN.md">简体中文</a></p>
 
-> One sentence, whole-web social data. Query creators, viral content, trending charts, and comment sentiment across **18+ social platforms** — straight from Claude, Cursor, or any MCP client.
+> Query creator commercial quotes, viral posts, live trending charts, video transcripts, e-commerce listings, and ad libraries across **34 platforms & 286+ standardized endpoints** — straight from Claude Code, Codex, Cursor, OpenClaw, or any MCP 2.0 client.
 
 <p align="center">
   <a href="https://github.com/kvalen-code/zxkol-skill/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/kvalen-code/zxkol-skill?style=social"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="MCP" src="https://img.shields.io/badge/Model_Context_Protocol-ready-7c3aed">
-  <img alt="Platforms" src="https://img.shields.io/badge/platforms-18%2B-09C160">
+  <img alt="MCP 2.1" src="https://img.shields.io/badge/MCP-2.1_Streamable_HTTP-7c3aed">
+  <img alt="Platforms" src="https://img.shields.io/badge/platforms-34-09C160">
+  <img alt="Endpoints" src="https://img.shields.io/badge/endpoints-286%2B-2563eb">
 </p>
 
 <p align="center">
   <a href="https://zxkol.com"><img alt="ZXKOL" src="assets/demo.png" width="800"></a>
 </p>
 
-**ZXKOL** turns "find me Douyin beauty creators with 100k–500k followers" into a single tool call — no scraping, no per-platform SDKs. It's a hosted [Model Context Protocol](https://modelcontextprotocol.io) server plus a drop-in skill: add one config block, get an API key, and your agent can pull KOL data, viral posts, hot lists, hashtag analytics, and AI comment insights from Douyin, TikTok, Xiaohongshu, Bilibili, YouTube, Instagram, and more.
+**ZXKOL** turns *"screen 100k–500k beauty KOLs on Douyin Xingtu & Xiaohongshu Pugongying and compare today's cross-platform trending topics"* into structured tool calls — zero scrapers, zero cookie maintenance, automatic multi-line failover.
 
 ```text
-You:    Find Douyin beauty creators (100k–500k followers) and what's trending on Xiaohongshu right now.
-Claude: → creator_search(keyword="beauty", followerRange="100-500k")
-        → content_search(keyword="beauty", platforms=["xiaohongshu"])
-        ✓ 12 creators + 8 trending notes, summarized.
+You:    Compare live hotlists on Douyin, Xiaohongshu & TikTok, and find mid-tier beauty creators.
+Agent:  → batch_call([douyin.hot.search, xiaohongshu.hot.list, tiktok.trends.hashtags])
+        → creator_search(keyword="美妆", followerRange="10-50")
+        ✓ Parallel response in 1 round-trip with transparent billing receipt.
 ```
 
 ---
 
-## ✨ Features
+## ✨ What's New in v2.1
 
-- **One call, multi-platform** — high-level tools auto fan-out across platforms and normalize results for the LLM.
-- **18+ platforms** — Douyin / TikTok / Xiaohongshu (RED) / Bilibili / Kuaishou / Weibo / YouTube / Instagram / Twitter(X) / Threads / Reddit / LinkedIn and more.
-- **1000+ raw endpoints** — drop down to any specific endpoint via semantic `find_route` + `rest_call`.
-- **AI comment insight** — sentiment, pain points, selling points, and content angles from a post's comments.
-- **Works everywhere MCP works** — Claude Desktop, Claude Code, Cursor, Continue, Windsurf, Cody, and more.
-- **Pay-as-you-go credits** — new accounts get **100 free credits**; cache hits are **half price**.
+- **34 Platforms & 286+ Standardized Endpoints** — Douyin (Xingtu & Index), Xiaohongshu (Pugongying), WeChat (Channels / MP / Search), Bilibili, Kuaishou, Weibo, Zhihu, Taobao/Tmall, Alibaba 1688, Xianyu, TikTok (Shop & Creative Center), YouTube, Instagram, X (Twitter), Reddit, Threads, LinkedIn, Bluesky, Telegram, Meta Ad Library, Google Ads Transparency, Amazon, AliExpress, App Store & more.
+- **MCP 2.0 Progressive Disclosure + `batch_call`** — `find` & `describe` work **even without an API key**; `batch_call` executes up to 5 endpoints concurrently in one RTT; `read_more` slices >20KB responses cleanly without blowing up context windows.
+- **Built-in MCP Resources & Prompts** — Read `zxkol://catalog/platforms` and `zxkol://billing/rules`, or invoke `/kol-screening`, `/viral-teardown`, and `/cross-platform-trends`.
+- **Transparent Dual-Track Billing** — Universal Standard Call Pool (1x regular / 5x commercial pro) + CNY Wallet seamless fallback. Discovery tools & failed upstream calls are **100% free**.
 
-## 🛠 Tools
+---
 
-### High-level tools — one line, auto fan-out + normalization
+## 🛠 Tool Architecture
 
-| Tool | What it does | Platforms |
-|---|---|---|
-| `creator_search` | Find creators / KOLs (Douyin Xingtu official commercial data) | Douyin |
-| `content_search` | Search viral content across platforms | 18 platforms |
-| `hot_list` | Real-time hot lists / trending charts | 13 platforms |
-| `content_detail` | Single post detail (stats, author, media) | 17 platforms |
-| `comment_insight` | AI comment sentiment & insight analysis | 14 platforms |
-| `hashtag_search` | Search hashtags / topics by keyword | 7+ platforms |
-| `hashtag_posts` | Top posts under a hashtag | 7+ platforms |
-| `douyin_index` | Douyin Index (keyword heat, brand radar, similar creators) | Douyin |
-| `douyin_xingtu` | Douyin Xingtu KOL profile / audience / quote | Douyin |
+### 1. MCP 2.0 Core Primitives (Covers all 34 platforms & 286+ endpoints)
 
-### Power tools — direct access to 1000+ raw endpoints
+| Tool | Billing | Description |
+| :--- | :--- | :--- |
+| `find` | **Free (Keyless OK)** | Natural-language search across 286+ endpoints (`query`, `platform`, `limit`). |
+| `describe` | **Free (Keyless OK)** | Inspect parameter schema, return entity model, and real-time call/CNY cost for an `endpoint_id`. |
+| `call` | Per endpoint | Invoke any `endpoint_id` (`view="compact"` recommended). Includes a first-line `[Receipt]` and auto-chunks payloads >20KB. |
+| `batch_call` | Per succeeded item | Execute **1–5 endpoint calls in parallel** in a single round-trip. |
+| `read_more` | **Free** | Read the next 20KB slice of a cached response via `cache_id` + `offset`. |
+| `account` | **Free** | Check remaining standard calls, equivalent pro calls, CNY wallet balance & VIP discount. |
+
+### 2. High-Level Multi-Platform Aggregators
 
 | Tool | What it does |
-|---|---|
-| `find_route` | **Semantic search (top-5)** — pass a natural-language intent (EN/中文), get the best-matching route + required params |
-| `list_routes` | Browse all routes with `platform` + `keyword` filters |
-| `rest_call` | Call any endpoint by `route` id (e.g. `douyin/lives/room-products`) + `params` |
+| :--- | :--- |
+| `creator_search` | Search Douyin Xingtu official commercial creators (followers, quote tiers, e-commerce level) |
+| `douyin_star` | Deep Douyin Xingtu KOL dossier (`profile`, `audience`, `price`, `data_overview`, `similar`) |
+| `douyin_index` | Douyin Index (`keyword_hot_trend`, `hot_words`, `brand_radar`, `similar_creators`) |
+| `content_search` | Multi-platform viral video & post search with unified schema |
+| `hot_list` | Real-time trending charts across 13+ major platforms |
+| `content_detail` | Single post stats, author info, and media links |
+| `comment_insight` | AI comment sentiment, user pain points, buying triggers & content hooks |
+| `hashtag_search` / `hashtag_posts` | Topic & challenge discovery plus top-performing posts |
 
-## 🚀 Quick start (2 minutes)
+---
 
-### 1. Get an API key
+## 🚀 Quick Start (2 Minutes)
 
-1. Sign up at **[zxkol.com](https://zxkol.com)** — new accounts get **100 free credits**.
-2. Open **[Dashboard → API Keys](https://zxkol.com/dashboard/api-keys)** → **Create API Key**.
-3. Copy your `zxk_live_...` key (shown once).
+### 1. Get an API Key
+1. Sign up at **[zxkol.com](https://zxkol.com)** (free welcome calls included).
+2. Go to **[Console → API Keys](https://zxkol.com/dashboard/api-keys)** and create a `zxk_live_...` key.
 
-### 2. Add the MCP server
+### 2. Install Skill + MCP Server
 
-**Claude Desktop** — edit `~/.claude/mcp.json` (macOS/Linux) or `%USERPROFILE%\.claude\mcp.json` (Windows):
+**One-line Skill pull (Claude Code / Codex / OpenClaw):**
+```bash
+mkdir -p ~/.claude/skills/zxkol
+curl -fsSL https://zxkol.com/skill.md -o ~/.claude/skills/zxkol/SKILL.md
+```
 
+**Configure MCP (`~/.claude/mcp.json`, `.mcp.json`, or `~/.cursor/mcp.json`):**
 ```json
 {
   "mcpServers": {
     "zxkol": {
       "type": "http",
       "url": "https://zxkol.com/api/mcp",
-      "headers": { "Authorization": "Bearer zxk_live_YOUR_KEY" }
+      "headers": {
+        "Authorization": "Bearer zxk_live_YOUR_KEY"
+      }
     }
   }
 }
 ```
 
-**Cursor** — `~/.cursor/mcp.json`, same block. **Claude Code** — `.mcp.json` in your project root.
-
-> More ready-to-paste configs in [`examples/`](examples/).
-
-### 3. Ask
-
-Restart your client and just ask — the tools appear automatically.
-
-> "What's trending on Douyin today?" · "Analyze the comments on this TikTok video." · "Find Xiaohongshu mom-and-baby bloggers."
-
-## 🧩 Use it as a Claude Code Skill
-
-Prefer a skill over a raw MCP config? Drop [`SKILL.md`](SKILL.md) into `~/.claude/skills/zxkol/` (with [`mcp.json`](mcp.json) alongside). Claude Code will know *when* to reach for ZXKOL automatically.
-
-## 💳 Pricing
-
-- Credits are deducted per tool call from the key owner's balance.
-- **Cache hits are half price** — repeated queries are nearly free.
-- B2B (API-key) calls carry a 1.5× multiplier.
-- Full pricing: **[zxkol.com/pricing](https://zxkol.com/pricing)**
-
-## 📚 Links
-
-- 🌐 Website — https://zxkol.com
-- 📖 API docs — https://zxkol.com/docs/api
-- 🔌 MCP guide — https://zxkol.com/docs/mcp
-- 🗺 Coverage matrix (18 platforms / 26 capabilities / 1000+ endpoints) — https://zxkol.com/about/coverage
-
 ---
 
-## ⭐ Star this repo
+## 📚 Official Links
 
-If ZXKOL saves you from writing yet another scraper, **drop a star** — it helps other builders find it.
+- 🌐 **Website & AI Workspace** — [https://zxkol.com](https://zxkol.com)
+- 📄 **Live Skill Feed** — [https://zxkol.com/skill.md](https://zxkol.com/skill.md)
+- 📖 **34-Platform API Reference** — [https://zxkol.com/docs/api](https://zxkol.com/docs/api)
+- 🔌 **MCP Setup Guide** — [https://zxkol.com/docs/mcp](https://zxkol.com/docs/mcp)
+- 💳 **Transparent Pricing** — [https://zxkol.com/pricing](https://zxkol.com/pricing) ([`/prices.json`](https://zxkol.com/prices.json))
+- 🤖 **LLM Index** — [`/llms.txt`](https://zxkol.com/llms.txt) · [`/llms-full.txt`](https://zxkol.com/llms-full.txt)
 
 ---
 
 ## License
 
-[MIT](LICENSE) — applies to the config, docs, and skill manifest in this repo. The ZXKOL hosted service and data are subject to the [zxkol.com](https://zxkol.com) terms.
+[MIT](LICENSE) — applies to the config, docs, and skill manifest in this repo. Hosted API & MCP data services are subject to [zxkol.com/terms](https://zxkol.com/terms).
