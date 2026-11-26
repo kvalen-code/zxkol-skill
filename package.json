@@ -1,0 +1,49 @@
+{
+  "name": "@zxkol/mcp-server",
+  "version": "2.1.0",
+  "description": "ZXKOL (智选达人) MCP 2.1 Server — Query creator commercial quotes, viral posts, live trends, comment sentiment, e-commerce listings & ad libraries across 34 platforms (286+ endpoints).",
+  "type": "module",
+  "main": "server/index.mjs",
+  "bin": {
+    "zxkol-mcp": "./server/index.mjs",
+    "zxkol-cli": "./scripts/zxkol-cli.mjs"
+  },
+  "files": [
+    "server/",
+    "scripts/",
+    "references/",
+    "examples/",
+    "SKILL.md",
+    "mcp.json",
+    "server.json",
+    "manifest.json",
+    "icon.png",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "agent-skill",
+    "zxkol",
+    "douyin",
+    "xiaohongshu",
+    "tiktok",
+    "youtube",
+    "instagram",
+    "kol",
+    "influencer",
+    "ecommerce"
+  ],
+  "homepage": "https://zxkol.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kvalen-code/zxkol-skill.git"
+  },
+  "author": "ZXKOL (https://zxkol.com)",
+  "license": "MIT"
+}

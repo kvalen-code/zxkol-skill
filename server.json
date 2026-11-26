@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.zxkol/zxkol-mcp",
+  "title": "智选达人 (ZXKOL) — 34-Platform Global Social, Creator & E-Commerce Data MCP",
+  "description": "Query creator commercial quotes, viral posts, live trends, comment sentiment, transcripts, e-commerce listings & ad libraries across 34 platforms (286+ standardized endpoints).",
+  "version": "2.1.0",
+  "websiteUrl": "https://zxkol.com",
+  "repository": {
+    "url": "https://github.com/kvalen-code/zxkol-skill",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://zxkol.com/api/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer zxk_live_... API key from https://zxkol.com/dashboard/api-keys (optional for keyless discovery via find & describe)",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

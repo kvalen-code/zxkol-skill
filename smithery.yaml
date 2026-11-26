@@ -1,0 +1,14 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      apiKey:
+        type: string
+        description: "ZXKOL API key (zxk_live_...) from https://zxkol.com/dashboard/api-keys. Optional for keyless discovery (find/describe)."
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['server/index.mjs'],
+      env: config.apiKey ? { ZXKOL_API_KEY: config.apiKey } : {}
+    })

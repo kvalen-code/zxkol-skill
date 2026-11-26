@@ -1,0 +1,115 @@
+{
+  "manifest_version": "0.3",
+  "name": "zxkol-mcp",
+  "display_name": "智选达人 (ZXKOL) 全球社媒与达人商业数据",
+  "version": "2.1.0",
+  "description": "一句话查询抖音星图、小红书蒲公英、微信、B站、淘宝、1688、TikTok Shop、YouTube、Instagram、Meta/Google 广告库等 34 平台 286+ 实时数据接口。",
+  "long_description": "智选达人 (zxkol.com) 为 AI 智能体提供开箱即用的全球 34 大社媒、达人营销、电商选品与广告投流情报数据网关。支持免 Key 体验接口检索 (find / describe)，内置 batch_call 五路并发原语、20KB 自动分片续读 (read_more)、12 个跨平台高层语义工具以及达人选号/爆款拆解/热榜对比预设 Prompts。",
+  "author": {
+    "name": "ZXKOL (智选达人)",
+    "url": "https://zxkol.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kvalen-code/zxkol-skill.git"
+  },
+  "homepage": "https://zxkol.com",
+  "documentation": "https://zxkol.com/docs/mcp",
+  "support": "https://zxkol.com/status",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.mjs"],
+      "env": {
+        "ZXKOL_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "ZXKOL API Key (zxk_live_...)",
+      "description": "前往 https://zxkol.com/dashboard/api-keys 创建密钥（留空亦可免费体验 find / describe 接口检索与平台目录）。",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "find",
+      "description": "Search across 34 platforms and 286+ standardized social/creator/e-commerce endpoints (free, keyless)."
+    },
+    {
+      "name": "describe",
+      "description": "Inspect full parameter schema, entity model, and real-time call/CNY pricing for an endpoint (free, keyless)."
+    },
+    {
+      "name": "call",
+      "description": "Invoke any standardized endpoint with automatic warehouse acceleration, multi-line failover, and billing receipt."
+    },
+    {
+      "name": "batch_call",
+      "description": "Execute up to 5 endpoint calls concurrently in a single round-trip."
+    },
+    {
+      "name": "read_more",
+      "description": "Paginate >20KB responses cleanly for free via cache_id and offset."
+    },
+    {
+      "name": "account",
+      "description": "Check remaining Universal Standard Calls, CNY wallet balance, and VIP discount."
+    },
+    {
+      "name": "creator_search",
+      "description": "Search Douyin Xingtu official commercial creators with quotes and engagement metrics."
+    },
+    {
+      "name": "content_search",
+      "description": "Search viral videos and posts across major domestic and global platforms."
+    },
+    {
+      "name": "hot_list",
+      "description": "Fetch live trending charts across 13+ major social platforms."
+    },
+    {
+      "name": "comment_insight",
+      "description": "AI sentiment, user pain points, and content hooks analysis from post comments."
+    }
+  ],
+  "prompts": [
+    {
+      "name": "kol-screening",
+      "description": "达人筛选与商业报价评估 (KOL Screening)"
+    },
+    {
+      "name": "viral-teardown",
+      "description": "爆款内容与评论舆情拆解 (Viral & Sentiment Teardown)"
+    },
+    {
+      "name": "cross-platform-trends",
+      "description": "跨平台实时热榜横向对比 (Cross-Platform Hotlists)"
+    }
+  ],
+  "keywords": [
+    "social-media",
+    "kol",
+    "influencer-marketing",
+    "douyin",
+    "xiaohongshu",
+    "tiktok",
+    "youtube",
+    "ecommerce",
+    "ad-library",
+    "zxkol"
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "license": "MIT"
+}
