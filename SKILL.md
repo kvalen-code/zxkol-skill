@@ -75,5 +75,8 @@ node ./scripts/zxkol-cli.mjs account
 
 1. 访问 **[https://zxkol.com](https://zxkol.com)** 注册登录（新用户即赠免费体验通兑次数）。
 2. 在 **[控制中心 → API Keys](https://zxkol.com/dashboard/api-keys)** 创建密钥（`zxk_live_...`），配置到环境变量 `ZXKOL_API_KEY` 或 `mcp.json`。
-3. **透明双轨计费**：常规接口消耗 `1` 标准次/调，高阶商业接口（星图/蒲公英/算数等）默认消耗 `5` 标准次/调；次数不足时自动由人民币钱包抵扣。`find`、`describe`、`account`、`read_more` 永久免费，上游失败自动免扣费。
-4. 完整平台 ID 列表与计费细则见包内 [`references/platforms-and-billing.md`](./references/platforms-and-billing.md) 或访问 [https://zxkol.com/pricing](https://zxkol.com/pricing)。
+3. **扣子（Coze）技能配置提示**：
+   - 在扣子技能管理中，请将 `ZXKOL_API_KEY` 配置为**「开发者变量 / 默认值」**（直接填入 `zxk_live_...` 纯密钥，不要加 `Bearer ` 前缀或引号）；若设为「用户变量」且对话侧未授权填写，沙箱运行时不会注入密钥或会传入未展开的 `COZE_ZXKOL_API_KEY_<skill_id>` 占位符导致返回「未授权」。
+   - 内置 `scripts/zxkol-cli.mjs` 与 `server/index.mjs` 已自动兼容 `ZXKOL_API_KEY` 以及扣子动态注入的 `COZE_*` 密钥环境变量；更新密钥后请务必点击**「发布技能」并在智能体中刷新技能版本**。
+4. **透明双轨计费**：常规接口消耗 `1` 标准次/调，高阶商业接口（星图/蒲公英/算数等）默认消耗 `5` 标准次/调；次数不足时自动由人民币钱包抵扣。`find`、`describe`、`account`、`read_more` 永久免费，上游失败自动免扣费。
+5. 完整平台 ID 列表与计费细则见包内 [`references/platforms-and-billing.md`](./references/platforms-and-billing.md) 或访问 [https://zxkol.com/pricing](https://zxkol.com/pricing)。
